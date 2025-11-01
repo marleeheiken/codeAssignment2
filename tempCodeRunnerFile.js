@@ -2,13 +2,6 @@ require('dotenv').config();
 const { healthMetricsCounter } = require('./healthReader');
 const { workoutCalculator } = require('./workoutReader');
 
-/**
- * Main function to process workout and health data files
- * Reads environment variables to personalize output and check weekly goals
- * Calls workoutCalculator and healthMetricsCounter to gather data
- * Displays a summary and goal progress
- */
-
 async function processFiles() {
   try {
     console.log(`Processing data for: ${process.env.USER_NAME}`);
@@ -24,15 +17,15 @@ async function processFiles() {
     console.log(`Health entries found: ${totalHealthEntries}`);
     console.log(`Weekly goal: ${process.env.WEEKLY_GOAL} minutes`);
 
-    if (totalMinutes >= process.env.WEEKLY_GOAL) {
+    if (totalMinutes >= Number(process.env.WEEKLY_GOAL)) {
       console.log(`Congrats ${process.env.USER_NAME}! You exceeded your weekly goal! Woop woop!!`);
     } else {
       console.log(`Keep going ${process.env.USER_NAME}, you're almost there lazy butt!`);
     }
 
-    } catch (err) {
-        console.error('Error processing files:', err.message);
-    }
+  } catch (err) {
+    console.error('Error processing files:', err.message);
+  }
 }
 
 processFiles();
